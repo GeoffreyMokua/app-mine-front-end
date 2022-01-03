@@ -1,24 +1,56 @@
-import { useOptionUpdate } from "../services/OptionProvider.js";
+import {useOptionUpdate} from "../services/OptionProvider.js";
+import { useEndPointUpdate } from "../services/OptionProvider.js";
 
 export default function SideBar() {
 
     const setNewOption = useOptionUpdate();
+    const setNewEndPoint = useEndPointUpdate();
 
     const itemList = [
-        {optionName: "All Tasks", icon: "fa-tasks", link: "#" },
-        {optionName: "In Progress", icon: "fa-spinner", link: "#" },
-        {optionName: "Completed", icon: "fa-check-double", link: "#" },
-        {optionName: "Today", icon: "fa-calendar-day", link: "#" },
-        {optionName: "Tommorow", icon: "fa-calendar-week", link: "#" },
-        {optionName: "Month", icon: "fa-calendar-alt", link: "#" },
-    ]
+        {
+            optionName: "All Tasks",
+            icon: "fa-tasks",
+            link: "#",
+            endPoint: "/todo/all",
+        },
+        {
+            optionName: "In Progress",
+            icon: "fa-spinner",
+            link: "#",
+            endPoint: "/todo/progress",
+        },
+        {
+            optionName: "Completed",
+            icon: "fa-check-double",
+            link: "#",
+            endPoint: "/todo/completed",
+        },
+        {
+            optionName: "Today",
+            icon: "fa-calendar-day",
+            link: "#",
+            endPoint: "/todo/today",
+        },
+        {
+            optionName: "Week",
+            icon: "fa-calendar-week",
+            link: "#",
+            endPoint: "/todo/week",
+        },
+        {
+            optionName: "Month",
+            icon: "fa-calendar-alt",
+            link: "#",
+            endPoint: "/todo/week",
+        },
+    ];
     return (
         // <div className='sidebar col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 px-0 py-2'>
         <div className='app-sidebar col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 px-0 py-2'>
             <div className="list-group list-group-flush">
                 {
                     itemList.map( (item, index) => {
-                        const { optionName, icon, link } = item;
+                        const { optionName, icon, link, endPoint } = item;
                         return (
                             <a
                                 className="list-group-item list-group-item-action list-group-item-light px-2"
@@ -26,7 +58,8 @@ export default function SideBar() {
                                 href={link}
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    setNewOption(optionName);
+                                    setNewOption(optionName)
+                                    setNewEndPoint(endPoint)
                                 }}
                             >
                                 <i className={`fas ${icon}`}>
