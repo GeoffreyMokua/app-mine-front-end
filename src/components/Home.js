@@ -10,9 +10,6 @@ import Container from '../layout/Container.js'
 
 export default function Home() {
 
-    const d1 = {title: "new title number one",
-                content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae minima facere ab animi mollitia non repellat consequatur, quibusdam fugit. Quod aut mollitia eum soluta deserunt, nesciunt repellendus velit quia doloribus. "}
-
     return (
         <>
             <Header />
@@ -22,7 +19,6 @@ export default function Home() {
                     <TaskOption />
                     <TaskContainer>
                         <TaskLayout itemComponent={TaskCard} />
-                        {/* <TaskCard todo={d1}/> */}
                     </TaskContainer>
                 </Container>
             </Root>
