@@ -1,6 +1,6 @@
 import {createContext, useState} from 'react'
 
-export const modalContext = createContext();
+export const ModalContext = createContext();
 
 export default function ModalProvider({children}) {
 
@@ -9,12 +9,9 @@ export default function ModalProvider({children}) {
     const handleClose = () => {setShow(false);}
 
     return (
-        <modalContext.Provider
-            value={{
-                modalStatus: show,
-                modalSetter: [handleOpen, handleClose],
-            }}>
+        <ModalContext.Provider
+            value={{show: show,handleOpen: handleOpen, handleClose: handleClose}}>
             {children}
-        </modalContext.Provider>
+        </ModalContext.Provider>
     );
 }

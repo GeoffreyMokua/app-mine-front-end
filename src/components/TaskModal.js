@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal'
+import { ModalContext } from '../services/ModalProvider.js';
 
-export default function TaskCreate({status, handleClose}) {
+export default function TaskModal() {
+
+    const {show, handleClose}  = useContext(ModalContext)
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -26,7 +29,7 @@ export default function TaskCreate({status, handleClose}) {
 
     return (
         <Modal
-            show={status}
+            show={show}
             onHide={handleClose}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
@@ -47,7 +50,7 @@ export default function TaskCreate({status, handleClose}) {
                             </div>
                             <button type="submit" className="btn btn-primary mb-3" onClick={handleForm}>Save</button>
                             &nbsp;
-                            <button type="submit" className="btn btn-primary mb-3" onClick={handleClose}>close</button>
+                            <button type="button" className="btn btn-primary mb-3" onClick={handleClose}>close</button>
                         </form>
                     </div>
             </div>

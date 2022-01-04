@@ -1,14 +1,11 @@
-import { useState, useContext } from "react"
-import TaskCreate from "./TaskCreate.js"
+import { useContext } from "react"
+import TaskModal from "./TaskModal.js"
 import { OptionContext } from "../services/OptionProvider.js"
-
+import { ModalContext } from "../services/ModalProvider.js";
 
 export default function TaskOption() {
     const currentOption = useContext(OptionContext);
-
-    const [show, setShow] = useState(false)
-    const handleOpen = () => {setShow(true)}
-    const handleClose = () => {setShow(false)}
+    const {show, handleOpen, handleClose} = useContext(ModalContext);
 
     return (
         <div className="container-fluid d-flex justify-content-between">
@@ -20,7 +17,7 @@ export default function TaskOption() {
                     New Task
                 </button>
             </div>
-            <TaskCreate 
+            <TaskModal 
                 status={show} 
                 // handleOpen={handleOpen} 
                 handleClose={handleClose} 
