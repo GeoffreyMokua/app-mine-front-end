@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import TaskCreate from "./TaskCreate.js"
-import { useOption } from "../services/OptionProvider.js"
+import { OptionContext } from "../services/OptionProvider.js"
+
 
 export default function TaskOption() {
-    const currentOption = useOption()
+    const currentOption = useContext(OptionContext);
 
     const [show, setShow] = useState(false)
     const handleOpen = () => {setShow(true)}

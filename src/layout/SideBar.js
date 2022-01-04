@@ -1,10 +1,13 @@
-import {useOptionUpdate} from "../services/OptionProvider.js";
-import { useEndPointUpdate } from "../services/OptionProvider.js";
+import { useContext } from "react";
+import {
+    OptionContextUpdate,
+    endPointContextUpdate,
+} from "../services/OptionProvider.js";
 
 export default function SideBar() {
 
-    const setNewOption = useOptionUpdate();
-    const setNewEndPoint = useEndPointUpdate();
+    const setNewOption = useContext(OptionContextUpdate);
+    const setNewEndPoint = useContext(endPointContextUpdate);
 
     const itemList = [
         {

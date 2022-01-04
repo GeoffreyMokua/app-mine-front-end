@@ -1,5 +1,4 @@
 
-
 const usDateFormat =  (input) => {
     return new Date(input).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -8,7 +7,7 @@ const usDateFormat =  (input) => {
     });
 }
 
-export default function ToDoCard({todo, handleOnClick}) {
+export default function ToDoCard({todo}) {
     const { title, content, updated_at } = todo || {};
 
     const handleTodoCard = ()=> {

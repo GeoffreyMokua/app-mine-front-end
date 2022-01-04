@@ -1,9 +1,9 @@
-import React from 'react'
+import { useContext } from "react";
 import { useGetData } from "../api/useGetData.js";
-import { useEndPoint } from "../services/OptionProvider.js";
+import { endPointContext } from "../services/OptionProvider.js";
 
 export default function TaskLayout({itemComponent: ItemComponent}) {
-    const url = useEndPoint();
+    const url = useContext(endPointContext);
     const todos = useGetData(`/api${url}`)
 
     return (

@@ -8,18 +8,18 @@ export default function TaskModifier(status, handleClose) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    useEffect(() => {
-        fetch("http://localhost:9292/api/todo/new")
-            .then((res) => res.json())
-            .then((todos) => {
-                console.log(todos);
-                setToDo(todos);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }, []);
-    }
+    // useEffect(() => {
+    //     fetch("http://localhost:9292/api/todo/new")
+    //         .then((res) => res.json())
+    //         .then((todos) => {
+    //             console.log(todos);
+    //             setToDo(todos);
+    //         })
+    //         .catch((err) => {
+    //             console.error(err);
+    //         });
+    // }, []);
+    
 
     return (
         <Modal
@@ -41,7 +41,7 @@ export default function TaskModifier(status, handleClose) {
                                     type="title" 
                                     className="form-control" 
                                     placeholder="Title" 
-                                    value ={todo.title}
+                                    // value ={todo.title}
                                     onChange={(se)=>{setTitle(se.target.value)}}/>
                             </div>
                             <div className="mb-3">
@@ -51,7 +51,7 @@ export default function TaskModifier(status, handleClose) {
                                     className="form-control" 
                                     rows="3" 
                                     placeholder="Content" 
-                                    value = {todo.content}
+                                    // value = {todo.content}
                                     onChange={(se)=>{setContent(se.target.value)}}>
 
                                 </textarea>

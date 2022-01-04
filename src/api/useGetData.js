@@ -1,10 +1,10 @@
 // custom Hook api
-import {useState, useEffect} from 'react'
-import { useEndPoint } from "../services/OptionProvider.js";
+import {useState, useEffect, useContext} from 'react'
+import { endPointContext } from "../services/OptionProvider.js";
 
 export const useGetData = (path) => {
 
-    const endPoint = useEndPoint();
+    const endPoint = useContext(endPointContext);
     const url = new URL("http://localhost");
     url.port = 9292;
     url.pathname = path;
