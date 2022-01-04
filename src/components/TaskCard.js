@@ -1,3 +1,5 @@
+import { useState } from "react";
+import TaskModifier from "./TaskModifier.js";
 
 const usDateFormat =  (input) => {
     return new Date(input).toLocaleDateString('en-US', {
@@ -10,8 +12,12 @@ const usDateFormat =  (input) => {
 export default function ToDoCard({todo}) {
     const { title, content, updated_at } = todo || {};
 
+    const [show, setShow] = useState(false)
+    const handleOpen = ()=>{ setShow(true) }
+    const handleClose = ()=>{ setShow(false) }
+    
     const handleTodoCard = ()=> {
-        console.log( "some thing")
+        handleOpen(true)
     }
 
     return (
@@ -43,6 +49,11 @@ export default function ToDoCard({todo}) {
                     </div>
                 </div>
             </div>
+            <TaskModifier 
+                todo={todo}
+                show={show}
+                handleClose={handleClose}
+            />
         </div>
     );
 }

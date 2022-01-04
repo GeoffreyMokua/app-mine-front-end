@@ -3,7 +3,6 @@ import {useState} from 'react'
 
 export default function usePostData(path, json_obj) {
 
-
     const [data, setData] = useState(null);
     setData(json_obj)
     const url = new URL("http://localhost");
