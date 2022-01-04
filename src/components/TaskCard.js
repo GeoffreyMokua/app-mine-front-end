@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { endPointContextUpdate, endPointContext } from "../services/OptionProvider.js";
 import TaskModifier from "./TaskModifier.js";
 
 const usDateFormat =  (input) => {
@@ -10,32 +11,58 @@ const usDateFormat =  (input) => {
 }
 
 export default function ToDoCard({todo}) {
+    const currentUrl = useContext(endPointContext);
+    const updateUrl = useContext(endPointContextUpdate);
+
     const { title, content, updated_at } = todo || {};
 
-    const [show, setShow] = useState(false)
-    const handleOpen = ()=>{ setShow(true) }
-    const handleClose = ()=>{ setShow(false) }
-    
-    const handleTodoCard = ()=> {
-        handleOpen(true)
-    }
+    const [show, setShow] = useState(false);
+    const handleOpen = () => {
+        setShow(true);
+    };
+    const handleClose = () => {
+        setShow(false);
+    };
+
+    const handleTodoCard = () => {
+        handleOpen(true);
+    };
+
+    const handleDelete = (e) => {
+        e.stopPropagation();
+        fetch(`http://localhost:9292/api/todo/${todo.id}`, { method: "DELETE" })
+            .then((res) => res.json())
+            .then((record) => {
+                console.log(record);
+                // setData(record);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            updateUrl(currentUrl);
+    };
 
     return (
-        <div className="card-deck" onClick={(e) => {
-            e.stopPropagation();
-            handleTodoCard()
-        }}>
+        <div
+            className="card-deck w-1"
+            onClick={(e) => {
+                e.stopPropagation();
+                handleTodoCard();
+            }}
+        >
             <div
                 className="card m-2"
                 // align-items-stretch
-                style={{ minWidth: "250px", minHeight: "200px" }}
+                style={{
+                    minWidth: "250px",
+                    maxWidth: "250px",
+                    minHeight: "200px",
+                    maxHeight: "250px",
+                }}
             >
                 <h4 className="card-header">{title}</h4>
                 <div className="card-body">
                     <p className="card-text">{content}</p>
-                    {/* <a href="#" className="card-link">
-                    Card link
-                </a> */}
                 </div>
                 <div className="d-flex justify-content-between m-0 p-0">
                     <div className="mx-2">
@@ -43,17 +70,22 @@ export default function ToDoCard({todo}) {
                         <small>{usDateFormat(updated_at)}</small>
                     </div>
                     <div className="mx-2 px-1">
-                        <i className="fas fa-edit"></i>
+                        <i className="fas fa-edit" onClick={handleOpen}></i>
                         &nbsp;
-                        <i className="fas fa-trash-alt"></i>
+                        <i
+                            className="fas fa-trash-alt"
+                            onClick={handleDelete}
+                        ></i>
                     </div>
                 </div>
             </div>
-            <TaskModifier 
-                todo={todo}
-                show={show}
-                handleClose={handleClose}
-            />
+            {show && (
+                <TaskModifier
+                    todo={todo}
+                    show={show}
+                    handleClose={handleClose}
+                />
+            )}
         </div>
     );
 }

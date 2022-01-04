@@ -1,22 +1,32 @@
 import Modal from 'react-bootstrap/Modal'
 import { useState } from 'react'
-// import { ModalContext } from '../services/ModalProvider.js';
 
 export default function TaskModifier({todo, show, handleClose}) {
 
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-
-
-    function testMe(){
-        console.log("from close button")
-        handleClose()
+    const [title, setTitle] = useState(todo.title);
+    const [content, setContent] = useState(todo.content);
+    const handleForm = (e) =>{
+        e.preventDefault()
+        todo.title = title
+        todo.content = content
+        fetch(`http://localhost:9292/api/todo/${todo.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: title,
+                content: content,
+            }),
+        })
+            .then((res) => res.json())
+            .then((record) => {
+                console.log(record);
+                // setData(record);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+            handleClose()
     }
-
-    const handleForm = () =>{
-
-    }
-
 
     return (
         <Modal
@@ -37,6 +47,7 @@ export default function TaskModifier({todo, show, handleClose}) {
                                 type="title"
                                 className="form-control"
                                 placeholder="Title"
+                                value={title}
                                 onChange={(se) => {
                                     setTitle(se.target.value);
                                 }}
@@ -49,6 +60,7 @@ export default function TaskModifier({todo, show, handleClose}) {
                                 className="form-control"
                                 rows="3"
                                 placeholder="Content"
+                                value={content}
                                 onChange={(se) => {
                                     setContent(se.target.value);
                                 }}
