@@ -11,15 +11,17 @@ export const useGetData = (path) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch(url)
-            .then((res) => res.json())
-            .then((todos) => {
-                console.log(todos);
-                setData(todos);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        if(path){
+            fetch(url)
+                .then((res) => res.json())
+                .then((todos) => {
+                    console.log(todos);
+                    setData(todos);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
     }, [endPoint]);
 
     return data;

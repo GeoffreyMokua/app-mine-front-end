@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react"
+import React, { useState, createContext } from "react"
 
 export const OptionContext = createContext();
 export const OptionContextUpdate = createContext()
@@ -11,13 +11,11 @@ export const endPointContextUpdate = createContext()
 
 export default function OptionProvider({children}) {
     const [option, setOption] = useState(null)
-
-    const [endPoint, setEndPoint] = useState(null)
+    const [endPoint, setEndPoint] = useState("/todo/all");
 
     function toggleEndPoint(api_endpoint){
         setEndPoint(api_endpoint)
     }
-
     function toggleOption(newOption){
         setOption(newOption)
     }

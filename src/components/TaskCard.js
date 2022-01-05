@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { endPointContextUpdate, endPointContext } from "../services/OptionProvider.js";
 import TaskModifier from "./TaskModifier.js";
+import { TasksProvider } from "../layout/Container.js";
 
 const usDateFormat =  (input) => {
     return new Date(input).toLocaleDateString('en-US', {
@@ -12,11 +13,13 @@ const usDateFormat =  (input) => {
 
 export default function ToDoCard({todo}) {
     const currentUrl = useContext(endPointContext);
-    const updateUrl = useContext(endPointContextUpdate);
+    // const updateUrl = useContext(endPointContextUpdate);
+    const { removeTask } = useContext(TasksProvider)
 
     const { title, content, updated_at } = todo || {};
 
     const [show, setShow] = useState(false);
+
     const handleOpen = () => {
         setShow(true);
     };
@@ -28,8 +31,7 @@ export default function ToDoCard({todo}) {
         handleOpen(true);
     };
 
-    const handleDelete = (e) => {
-        e.stopPropagation();
+    const handleDelete = () => {
         fetch(`http://localhost:9292/api/todo/${todo.id}`, { method: "DELETE" })
             .then((res) => res.json())
             .then((record) => {
@@ -39,7 +41,8 @@ export default function ToDoCard({todo}) {
             .catch((err) => {
                 console.error(err);
             });
-            updateUrl(currentUrl);
+            // updateUrl(currentUrl);
+            removeTask(todo)
     };
 
     return (
@@ -74,7 +77,10 @@ export default function ToDoCard({todo}) {
                         &nbsp;
                         <i
                             className="fas fa-trash-alt"
-                            onClick={handleDelete}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleDelete()
+                            }}
                         ></i>
                     </div>
                 </div>

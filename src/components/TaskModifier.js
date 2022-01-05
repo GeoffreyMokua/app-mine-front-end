@@ -3,10 +3,13 @@ import { useState } from 'react'
 
 export default function TaskModifier({todo, show, handleClose}) {
 
+    const handleTaskModifier = () => {
+            handleClose(false);
+        };
+
     const [title, setTitle] = useState(todo.title);
     const [content, setContent] = useState(todo.content);
-    const handleForm = (e) =>{
-        e.preventDefault()
+    const handleForm = () =>{
         todo.title = title
         todo.content = content
         fetch(`http://localhost:9292/api/todo/${todo.id}`, {
@@ -17,21 +20,20 @@ export default function TaskModifier({todo, show, handleClose}) {
                 content: content,
             }),
         })
-            .then((res) => res.json())
+            .then((response) => response.json())
             .then((record) => {
                 console.log(record);
-                // setData(record);
             })
             .catch((err) => {
                 console.error(err);
             });
-            handleClose()
+            handleTaskModifier();
     }
 
     return (
         <Modal
             show={show}
-            onHide={handleClose}
+            onHide={handleTaskModifier}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -69,7 +71,11 @@ export default function TaskModifier({todo, show, handleClose}) {
                         <button
                             type="submit"
                             className="btn btn-primary mb-3"
-                            onClick={handleForm}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                handleForm()
+                            }}
                         >
                             Save
                         </button>
@@ -77,7 +83,10 @@ export default function TaskModifier({todo, show, handleClose}) {
                         <button
                             type="button"
                             className="btn btn-primary mb-3"
-                            onClick={handleClose}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleTaskModifier()
+                            }}
                         >
                             close
                         </button>

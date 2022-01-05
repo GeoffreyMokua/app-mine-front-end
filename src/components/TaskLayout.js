@@ -1,18 +1,22 @@
 import { useContext } from "react";
-import { useGetData } from "../api/useGetData.js";
-import { endPointContext } from "../services/OptionProvider.js";
+import { TasksProvider } from "../layout/Container.js";
+// import { useGetData } from "../api/useGetData.js";
+// import { endPointContext } from "../services/OptionProvider.js";
 
 export default function TaskLayout({itemComponent: ItemComponent}) {
-    const url = useContext(endPointContext);
-    const todos = useGetData(`/api${url}`)
-
+    
+    const { tasksList } = useContext(TasksProvider);
+    // const url = useContext(endPointContext);
+    // const todos = useGetData(`/api${url}`);
+    // console.log("tasksList: ", tasksList);
+    
     return (
-        todos.map( (todo) => (
+        tasksList.map( (todo) => (
             <ItemComponent 
                 key={todo.id}
                 todo={todo}
             />
-        )
-        )
+        ))
+        // <h2>1</h2>
     )
 }

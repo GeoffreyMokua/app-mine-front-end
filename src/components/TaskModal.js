@@ -1,31 +1,33 @@
 import { useState, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { ModalContext } from '../services/ModalProvider.js';
+import { TasksProvider } from '../layout/Container.js';
 
 export default function TaskModal() {
 
     const {show, handleClose}  = useContext(ModalContext)
+    const { addTask } = useContext(TasksProvider)
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     
     const handleForm = (event) => {
         event.preventDefault();
-        // event.reset();
         fetch("http://localhost:9292/api/todo/new", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 title: title,
-                content: content
+                content: content,
             }),
         })
-            .then((r) => r.json())
-            .then(console.log);
+            .then((response) => response.json())
+            .then((newTodo) => {
+                console.log("new todo: ", newTodo);
+                addTask(newTodo);
+            });
             handleClose()
     }
-        
-
 
     return (
         <Modal

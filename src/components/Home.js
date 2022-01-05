@@ -7,7 +7,7 @@ import TaskLayout from './TaskLayout.js'
 import TaskCard from './TaskCard.js'
 import Root from '../layout/Root.js'
 import Container from '../layout/Container.js'
-import TaskModifier from './TaskModifier.js'
+
 
 export default function Home() {
 
@@ -20,6 +20,7 @@ export default function Home() {
                     <TaskOption />
                     <TaskContainer>
                         <TaskLayout itemComponent={TaskCard} />
+                        {/* <TaskCard /> */}
                     </TaskContainer>
                 </Container>
             </Root>
