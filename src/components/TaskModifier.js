@@ -3,12 +3,29 @@ import { useState } from 'react'
 
 export default function TaskModifier({todo, show, handleClose}) {
 
+    const [category, setCategory] = useState('')
     const handleTaskModifier = () => {
             handleClose(false);
         };
+    
+    const modalOnOpen = () =>{
+        fetch(`http://localhost:9292/api/todo/${todo.id}`)
+            .then((res) => res.json())
+            .then((todo_obj) => {
+                if(todo_obj.category){
+                    setCategory(todo_obj.category.category)
+                } else{
+                    setCategory('')
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 
     const [title, setTitle] = useState(todo.title);
     const [content, setContent] = useState(todo.content);
+    
     const handleForm = () =>{
         todo.title = title
         todo.content = content
@@ -34,6 +51,7 @@ export default function TaskModifier({todo, show, handleClose}) {
         <Modal
             show={show}
             onHide={handleTaskModifier}
+            onShow={modalOnOpen}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -55,6 +73,22 @@ export default function TaskModifier({todo, show, handleClose}) {
                                 }}
                             />
                         </div>
+                        <fieldset disabled>
+                            <div className="mb-3">
+                                <label className="form-label">Category</label>
+                                <input
+                                    id="disabledTextInput"
+                                    name="category"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Disabled"
+                                    value={category}
+                                    onChange={() => {
+                                        return null;
+                                    }}
+                                />
+                            </div>
+                        </fieldset>
                         <div className="mb-3">
                             <label className="form-label">Todo Content</label>
                             <textarea
@@ -72,9 +106,9 @@ export default function TaskModifier({todo, show, handleClose}) {
                             type="submit"
                             className="btn btn-primary mb-3"
                             onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                handleForm()
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleForm();
                             }}
                         >
                             Save
@@ -84,8 +118,8 @@ export default function TaskModifier({todo, show, handleClose}) {
                             type="button"
                             className="btn btn-primary mb-3"
                             onClick={(e) => {
-                                e.stopPropagation()
-                                handleTaskModifier()
+                                e.stopPropagation();
+                                handleTaskModifier();
                             }}
                         >
                             close
