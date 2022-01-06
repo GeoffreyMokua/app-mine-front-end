@@ -2,43 +2,30 @@ import React from 'react'
 import { Navbar, NavDropdown, Nav, Container, Form, FormControl, Button } from 'react-bootstrap'
 export default function Header() {
     return (
-        <>
-            <Navbar bg="light" expand="xxl" className='m-0'>
-                <Container fluid className='px-2'>
-                    <Navbar.Brand href="#">Todo App</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
-                        <NavDropdown title="Link" id="navbarScrollingDropdown">
-                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action5">
-                            Something else here
-                        </NavDropdown.Item>
-                        </NavDropdown>
-                        <Nav.Link href="#" disabled>
-                        Link
-                        </Nav.Link>
-                    </Nav>
-                    {/* <Form className="d-flex">
-                        <FormControl
-                        type="search"
-                        placeholder="Search"
-                        className="me-2"
-                        aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form> */}
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </>
-    )
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand " href="#"><h1 className='text-success'>Todo App</h1></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-success" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-success" href="#">About</a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">User Profile</a>
+                </li>
+                </ul>
+
+            </div>
+            </nav>
+
+    );
 }

@@ -25,7 +25,7 @@ export default function Container({children}) {
         fetch(`http://localhost:9292/api${url}`)
             .then((res) => res.json())
             .then((todos) => {
-                // console.log(todos);
+                console.log("todos list: ", todos);
                 setTasksList(todos);
             })
             .catch((err) => {

@@ -1,3 +1,4 @@
+import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Modal from 'react-bootstrap/Modal'
 import { useState } from 'react'
 
@@ -73,22 +74,24 @@ export default function TaskModifier({todo, show, handleClose}) {
                                 }}
                             />
                         </div>
-                        <fieldset disabled>
-                            <div className="mb-3">
+                        <div className="  mb-3">
+                            <div>
                                 <label className="form-label">Category</label>
-                                <input
-                                    id="disabledTextInput"
-                                    name="category"
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Disabled"
-                                    value={category}
-                                    onChange={() => {
-                                        return null;
-                                    }}
-                                />
+                                <fieldset disabled>
+                                    <input
+                                        id="disabledTextInput"
+                                        name="category"
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Disabled"
+                                        value={category}
+                                        onChange={() => {
+                                            return null;
+                                        }}
+                                    />
+                                </fieldset>
                             </div>
-                        </fieldset>
+                        </div>
                         <div className="mb-3">
                             <label className="form-label">Todo Content</label>
                             <textarea

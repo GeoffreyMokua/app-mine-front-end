@@ -54,7 +54,8 @@ export default function SideBar() {
                     const { optionName, icon, link, endPoint } = item;
                     return (
                         <a
-                            className="list-group-item list-group-item-action list-group-item-light px-2"
+                            aria-label={optionName}
+                            className="list-group-item list-group-item text-success list-group-item-light px-3 my-2"
                             key={index}
                             href={link}
                             onClick={(e) => {
@@ -63,13 +64,12 @@ export default function SideBar() {
                                 setNewEndPoint(endPoint);
                             }}
                         >
-                            <i className={`fas ${icon}`}>
-                                &nbsp; &nbsp;
-                                {optionName}
-                            </i>
+                            <i className={`fas ${icon}`}>&nbsp; &nbsp;</i>
+                            {optionName}
                         </a>
                     );
                 })}
+
 
             </div>
         </div>

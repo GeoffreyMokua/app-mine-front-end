@@ -52,7 +52,7 @@ export default function ToDoCard({todo}) {
                 style={{
                     minWidth: "250px",
                     maxWidth: "250px",
-                    minHeight: "200px",
+                    minHeight: "250px",
                     maxHeight: "250px",
                 }}
             >
@@ -60,21 +60,44 @@ export default function ToDoCard({todo}) {
                 <div className="card-body">
                     <p className="card-text">{content}</p>
                 </div>
-                <div className="d-flex justify-content-between m-0 p-0">
-                    <div className="mx-2">
-                        <i className="far fa-clock"></i>&nbsp;
-                        <small>{usDateFormat(updated_at)}</small>
-                    </div>
-                    <div className="mx-2 px-1">
-                        <i className="fas fa-edit" onClick={handleOpen}></i>
-                        &nbsp;
-                        <i
-                            className="fas fa-trash-alt data-toggle='popover' title='Popover title'"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete();
-                            }}
-                        ></i>
+                <div className="card-footer bg-transparent px-0">
+                    <div className="d-flex justify-content-between m-0 p-0">
+                        <div className="mx-2">
+                            <i className="far fa-clock text-success"></i>&nbsp;
+                            <small>{usDateFormat(updated_at)}</small>
+                        </div>
+                        <div className="mx-2 px-1">
+                            {(() => {
+                                const hasStatusProp =
+                                    todo.hasOwnProperty("status");
+
+                                if (hasStatusProp) {
+                                    if (todo.status.status === "In Progress") {
+                                        return (
+                                            <i className="fa fa-spinner fa-pulse text-success mr-2"></i>
+                                        );
+                                    } else {
+                                        return (
+                                            <i className="fa fa-check-double fa-flip text-success"></i>
+                                        );
+                                    }
+                                }
+                            })()}
+                            &nbsp;
+                            <i
+                                className="fas fa-edit text-success"
+                                onClick={handleOpen}
+                            ></i>
+                            &nbsp; &nbsp;
+                            <i
+                                className="fas fa-trash-alt text-success"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete();
+                                }}
+                            ></i>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
