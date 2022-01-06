@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { endPointContextUpdate, endPointContext } from "../services/OptionProvider.js";
 import TaskModifier from "./TaskModifier.js";
 import { TasksProvider } from "../layout/Container.js";
 
@@ -12,12 +11,9 @@ const usDateFormat =  (input) => {
 }
 
 export default function ToDoCard({todo}) {
-    const currentUrl = useContext(endPointContext);
-    // const updateUrl = useContext(endPointContextUpdate);
+
     const { removeTask } = useContext(TasksProvider)
-
     const { title, content, updated_at } = todo || {};
-
     const [show, setShow] = useState(false);
 
     const handleOpen = () => {
@@ -26,7 +22,6 @@ export default function ToDoCard({todo}) {
     const handleClose = () => {
         setShow(false);
     };
-
     const handleTodoCard = () => {
         handleOpen(true);
     };
@@ -36,12 +31,10 @@ export default function ToDoCard({todo}) {
             .then((res) => res.json())
             .then((record) => {
                 console.log(record);
-                // setData(record);
             })
             .catch((err) => {
                 console.error(err);
             });
-            // updateUrl(currentUrl);
             removeTask(todo)
     };
 
@@ -76,10 +69,10 @@ export default function ToDoCard({todo}) {
                         <i className="fas fa-edit" onClick={handleOpen}></i>
                         &nbsp;
                         <i
-                            className="fas fa-trash-alt"
+                            className="fas fa-trash-alt data-toggle='popover' title='Popover title'"
                             onClick={(e) => {
-                                e.stopPropagation()
-                                handleDelete()
+                                e.stopPropagation();
+                                handleDelete();
                             }}
                         ></i>
                     </div>

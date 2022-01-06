@@ -44,37 +44,35 @@ export default function SideBar() {
             optionName: "Month",
             icon: "fa-calendar-alt",
             link: "#",
-            endPoint: "/todo/week",
+            endPoint: "/todo/month",
         },
     ];
     return (
-        // <div className='sidebar col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 px-0 py-2'>
-        <div className='app-sidebar col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 px-0 py-2'>
+        <div className="app-sidebar col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 px-0 py-2">
             <div className="list-group list-group-flush">
-                {
-                    itemList.map( (item, index) => {
-                        const { optionName, icon, link, endPoint } = item;
-                        return (
-                            <a
-                                className="list-group-item list-group-item-action list-group-item-light px-2"
-                                key={index}
-                                href={link}
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    setNewOption(optionName)
-                                    setNewEndPoint(endPoint)
-                                }}
-                            >
-                                <i className={`fas ${icon}`}>
-                                    &nbsp; &nbsp;
-                                    {optionName}
-                                </i>
-                            </a>
-                        );
-                    })
-                }
+                {itemList.map((item, index) => {
+                    const { optionName, icon, link, endPoint } = item;
+                    return (
+                        <a
+                            className="list-group-item list-group-item-action list-group-item-light px-2"
+                            key={index}
+                            href={link}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setNewOption(optionName);
+                                setNewEndPoint(endPoint);
+                            }}
+                        >
+                            <i className={`fas ${icon}`}>
+                                &nbsp; &nbsp;
+                                {optionName}
+                            </i>
+                        </a>
+                    );
+                })}
+
             </div>
         </div>
-    )
+    );
 }
 

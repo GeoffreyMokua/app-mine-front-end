@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { endPointContext } from "../services/OptionProvider.js";
-// import { useGetData } from "../api/useGetData.js";
-
 export const TasksProvider = createContext();
 
 export default function Container({children}) {
     const url = useContext(endPointContext);
-    // const todos = useGetData(`/api${url}`);
 
     const [tasksList, setTasksList] = useState([]);
 
@@ -28,7 +25,7 @@ export default function Container({children}) {
         fetch(`http://localhost:9292/api${url}`)
             .then((res) => res.json())
             .then((todos) => {
-                console.log(todos);
+                // console.log(todos);
                 setTasksList(todos);
             })
             .catch((err) => {
