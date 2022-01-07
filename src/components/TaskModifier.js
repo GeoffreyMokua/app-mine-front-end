@@ -122,7 +122,7 @@ export default function TaskModifier({todo, show, handleClose}) {
                                             aria-expanded="false"
                                             onClick={toggleOpen}
                                         >
-                                            Action
+                                            Status
                                         </button>
                                         <div
                                             className={`dropdown-menu ${
