@@ -30,7 +30,7 @@ export default function CategoryModal({ status, handleClose }) {
         >
 
             <div className="card">
-                <div className="card-header">New Task</div>
+                <div className="card-header">New Category</div>
                     <div className="card-body">
                         <form>
                             <div className="mb-3">

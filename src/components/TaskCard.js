@@ -64,7 +64,13 @@ export default function ToDoCard({todo}) {
                     <div className="d-flex justify-content-between m-0 p-0">
                         <div className="mx-2">
                             <i className="far fa-clock text-success"></i>&nbsp;
-                            <small>{usDateFormat(updated_at)}</small>
+                            <small
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="buttom"
+                                title="Created At"
+                            >
+                                {usDateFormat(updated_at)}
+                            </small>
                         </div>
                         <div className="mx-2 px-1">
                             {(() => {
@@ -74,29 +80,44 @@ export default function ToDoCard({todo}) {
                                 if (hasStatusProp) {
                                     if (todo.status.status === "In Progress") {
                                         return (
-                                            <i className="fa fa-spinner fa-pulse text-success mr-2"></i>
+                                            <i
+                                                className="fa fa-spinner fa-pulse text-success mr-2"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="buttom"
+                                                title="Status: In Progress"
+                                            ></i>
                                         );
                                     } else {
                                         return (
-                                            <i className="fa fa-check-double fa-flip text-success"></i>
+                                            <i
+                                                className="fa fa-check-double text-success"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="buttom"
+                                                title="Status: Completed"
+                                            ></i>
                                         );
                                     }
                                 }
                             })()}
-                            &nbsp;
+                            &nbsp;&nbsp;
                             <i
                                 className="fas fa-edit text-success"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="buttom"
+                                title="Update Todo"
                                 onClick={handleOpen}
                             ></i>
                             &nbsp; &nbsp;
                             <i
                                 className="fas fa-trash-alt text-success"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="buttom"
+                                title="Delete Todo"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleDelete();
                                 }}
                             ></i>
-                            
                         </div>
                     </div>
                 </div>
@@ -108,6 +129,8 @@ export default function ToDoCard({todo}) {
                     handleClose={handleClose}
                 />
             )}
+
+            
         </div>
     );
 }

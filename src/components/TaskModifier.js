@@ -1,13 +1,33 @@
-import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Modal from 'react-bootstrap/Modal'
 import { useState } from 'react'
 
 export default function TaskModifier({todo, show, handleClose}) {
+    
+    const [dropdown, setDropdown] = useState(false);
+    const toggleOpen = () => setDropdown(!dropdown);
 
     const [category, setCategory] = useState('')
     const handleTaskModifier = () => {
             handleClose(false);
         };
+    const toggleStatus = (stauts) => {
+        fetch(`http://localhost:9292/api/todo/status/${todo.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                status: stauts,
+            }),
+        })
+            .then((response) => response.json())
+            .then((record) => {
+                console.log(record);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        
+        toggleOpen()
+    }
     
     const modalOnOpen = () =>{
         fetch(`http://localhost:9292/api/todo/${todo.id}`)
@@ -58,7 +78,7 @@ export default function TaskModifier({todo, show, handleClose}) {
             centered
         >
             <div className="card">
-                <div className="card-header">New Task</div>
+                <div className="card-header">Update Todo</div>
                 <div className="card-body">
                     <form>
                         <div className="mb-3">
@@ -77,18 +97,63 @@ export default function TaskModifier({todo, show, handleClose}) {
                         <div className="  mb-3">
                             <div>
                                 <label className="form-label">Category</label>
-                                <fieldset disabled>
-                                    <input
-                                        id="disabledTextInput"
-                                        name="category"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Disabled"
-                                        value={category}
-                                        onChange={() => {
-                                            return null;
-                                        }}
-                                    />
+                                <fieldset className="row mx-0 justify-content-between">
+                                    {/* d-flex justify-content-between */}
+                                    <div className="col-10 px-0">
+                                        <input
+                                            // disabled
+                                            id="disabledTextInput"
+                                            name="category"
+                                            type="text"
+                                            className="form-control align-self-stretch"
+                                            placeholder="Disabled"
+                                            value={category}
+                                            onChange={() => {
+                                                return null;
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="btn-group col-auto px-0">
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-dark text-success dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            onClick={toggleOpen}
+                                        >
+                                            Action
+                                        </button>
+                                        <div
+                                            className={`dropdown-menu ${
+                                                dropdown ? "show" : ""
+                                            }`}
+                                        >
+                                            <a
+                                                className="dropdown-item"
+                                                href="#/"
+                                                onClick={(e) => {
+                                                    e.preventDefault()
+                                                    e.stopPropagation();
+                                                    toggleStatus("In Progress");
+                                                }}
+                                            >
+                                                In Progress
+                                            </a>
+                                            <div className="dropdown-divider"></div>
+                                            <a
+                                                className="dropdown-item"
+                                                href="#/"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleStatus("Done");
+                                                }}
+                                            >
+                                                Completed
+                                            </a>
+                                        </div>
+                                    </div>
                                 </fieldset>
                             </div>
                         </div>

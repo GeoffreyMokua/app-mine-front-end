@@ -43,7 +43,7 @@ export default function TaskModal() {
             centered
         >
             <div className="card w-10">
-                <div className="card-header">New Task</div>
+                <div className="card-header">New Todo</div>
                 <div className="card-body">
                     <form>
                         <div className="mb-3">
